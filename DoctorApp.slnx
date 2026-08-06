@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="DoctorApp.Api/DoctorApp.Api.csproj" Id="21f9fd27-28ce-4dc3-b403-4d4f3aac4f72" />
+  <Project Path="DoctorApp/DoctorApp.csproj" />
+</Solution>
