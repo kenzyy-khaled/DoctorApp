@@ -28,7 +28,7 @@ namespace DoctorApp.Api.Controllers
             return StatusCode(200, specializations);
         }
 
-       
+        //add specialization search by name
         [HttpGet("Search")]
         public IActionResult SearchSpecialization(string name)
         {
