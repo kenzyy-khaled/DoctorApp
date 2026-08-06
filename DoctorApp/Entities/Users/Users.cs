@@ -24,7 +24,7 @@ namespace DoctorApp.Entities.Users
 
         public string Password { get; set; }
 
-        public string ConfirmPassword { get; set; }
+       
 
         public int? DoctorId { get; set; }
 
