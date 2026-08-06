@@ -23,7 +23,9 @@ namespace DoctorApp.Entities.Users
 
         public string Bio { get; set; }
 
-        
+        public decimal HourRate { get; set; }
+
+
         public ICollection<DoctorSpecialization> DoctorSpecializations { get; set; }
             = new List<DoctorSpecialization>();
     }

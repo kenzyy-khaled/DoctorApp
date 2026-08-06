@@ -6,6 +6,7 @@ using DoctorApp.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
+
 namespace DoctorApp.Api.Controllers
 {
     [Route("api/[controller]")]
@@ -13,13 +14,13 @@ namespace DoctorApp.Api.Controllers
     public class SpecializationController : ControllerBase
     {
         private readonly DoctorAppDbContext _context;
-         
+
         public SpecializationController(DoctorAppDbContext context)
         {
             _context = context;
         }
 
-      
+        // Get All Specializations
         [HttpGet("Data")]
         public IActionResult GetSpecializations()
         {
@@ -28,7 +29,7 @@ namespace DoctorApp.Api.Controllers
             return StatusCode(200, specializations);
         }
 
-        //add specialization search by name
+        // Search Specialization By Name
         [HttpGet("Search")]
         public IActionResult SearchSpecialization(string name)
         {
@@ -47,6 +48,29 @@ namespace DoctorApp.Api.Controllers
             }
 
             return StatusCode(200, specialization);
+        }
+
+        // Get Doctors By Specialization
+        [HttpGet("Doctors")]
+        public IActionResult GetDoctorsBySpecialization(int specializationId)
+        {
+            var doctors = _context.DoctorSpecializations
+                .Include(x => x.Doctor)
+                .ThenInclude(x => x.User)
+                .Where(x => x.SpecializationId == specializationId)
+                .Select(x => new
+                {
+                    Name = x.Doctor.User.Name,
+                    HourRate = x.Doctor.HourRate
+                })
+                .ToList();
+
+            if (doctors.Count == 0)
+            {
+                return StatusCode(404, "No Doctors Found");
+            }
+
+            return StatusCode(200, doctors);
         }
     }
 }
